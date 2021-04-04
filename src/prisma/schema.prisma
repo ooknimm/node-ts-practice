@@ -1,0 +1,25 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model users {
+  id       Int        @id @default(autoincrement())
+  name     String     @db.VarChar(30)
+  password String     @db.VarChar(100)
+  articles articles[]
+}
+
+model articles {
+  id          Int    @id @default(autoincrement())
+  title       String @db.VarChar(40)
+  description String @db.VarChar(500)
+  user_id     Int
+  users       users  @relation(fields: [user_id], references: [id])
+
+  @@index([user_id], name: "blog_user_user_id_fk")
+}

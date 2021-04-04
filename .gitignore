@@ -1,0 +1,6 @@
+build
+logs
+.env
+.test.env
+migrations
+node_modules
